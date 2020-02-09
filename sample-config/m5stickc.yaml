@@ -104,11 +104,11 @@ i2c:
      scan: True
 
 font:
-  - file: 'aria.ttf'
+  - file: 'arial.ttf'
     id: font1
     size: 8
 
-  - file: 'aria.ttf'
+  - file: 'arial.ttf'
     id: font2
     size: 36
 
