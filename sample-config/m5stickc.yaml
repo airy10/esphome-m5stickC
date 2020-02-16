@@ -98,10 +98,6 @@ i2c:
      sda: GPIO21
      scl: GPIO22
      scan: True
-   - id: bus_b
-     sda: GPIO34
-     scl: GPIO0
-     scan: True
 
 font:
   - file: 'arial.ttf'
