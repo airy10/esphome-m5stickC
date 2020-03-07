@@ -25,6 +25,7 @@ namespace axp192 {
 class AXP192Component : public PollingComponent, public i2c::I2CDevice {
 public:
   void set_batterylevel_sensor(sensor::Sensor *batterylevel_sensor) { batterylevel_sensor_ = batterylevel_sensor; }
+  void set_brightness(float brightness) { brightness_ = brightness; }
 
   // ========== INTERNAL METHODS ==========
   // (In most use cases you won't need these)
@@ -35,6 +36,8 @@ public:
 
 protected:
     sensor::Sensor *batterylevel_sensor_;
+    float brightness_{1.0f};
+    float curr_brightness_{-1.0f};
 
     /**
      * LDO2: Display backlight
@@ -44,7 +47,7 @@ protected:
      * DCDC3: Use unknown
      */
     void  begin(bool disableLDO2 = false, bool disableLDO3 = false, bool disableRTC = false, bool disableDCDC1 = false, bool disableDCDC3 = false);
-    void  ScreenBreath(uint8_t brightness);
+    void  UpdateBrightness();
     bool  GetBatState();
     uint8_t  GetBatData();
   
