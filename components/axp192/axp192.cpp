@@ -33,6 +33,8 @@ void AXP192Component::update() {
       }
       this->batterylevel_sensor_->publish_state(batterylevel);
     }
+
+    UpdateBrightness();
 }
 
 
@@ -157,14 +159,25 @@ void AXP192Component::ReadBuff( uint8_t Addr , uint8_t Size , uint8_t *Buff )
     this->read_bytes(Addr, Buff, Size);
 }
 
-void AXP192Component::ScreenBreath(uint8_t brightness)
+void AXP192Component::UpdateBrightness()
 {
-    if (brightness > 12) 
+    ESP_LOGD(TAG, "Brightness=%f (Curr: %f)", brightness_, curr_brightness_);
+    if (brightness_ == curr_brightness_)
     {
-        brightness = 12;
+        return;
+    }
+    curr_brightness_ = brightness_;
+
+    const uint8_t c_min = 7;
+    const uint8_t c_max = 12;
+    auto ubri = c_min + static_cast<uint8_t>(brightness_ * (c_max - c_min));
+    
+    if (ubri > c_max) 
+    {
+        ubri = c_max;
     }
     uint8_t buf = Read8bit( 0x28 );
-    Write1Byte( 0x28 , ((buf & 0x0f) | (brightness << 4)) );
+    Write1Byte( 0x28 , ((buf & 0x0f) | (ubri << 4)) );
 }
 
 bool AXP192Component::GetBatState()
