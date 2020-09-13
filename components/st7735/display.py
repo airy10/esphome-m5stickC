@@ -10,7 +10,7 @@ from . import st7735_ns
 
 DEPENDENCIES = ['spi']
 
-ST7735 = st7735_ns.class_('ST7735', cg.PollingComponent, spi.SPIDevice)
+ST7735 = st7735_ns.class_('ST7735', cg.PollingComponent, spi.SPIDevice, display.DisplayBuffer)
 ST7735Ref = ST7735.operator('ref')
 
 CONFIG_SCHEMA = display.FULL_DISPLAY_SCHEMA.extend({
