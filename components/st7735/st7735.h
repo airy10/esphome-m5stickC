@@ -147,8 +147,8 @@ class ST7735 : public PollingComponent, public display::DisplayBuffer,
   
   void spi_master_write_addr(uint16_t addr1, uint16_t addr2);
   void spi_master_write_color(uint16_t color, uint16_t size);
-  
-  void draw_absolute_pixel_internal(int x, int y, int color) override;
+
+  void draw_absolute_pixel_internal(int x, int y, Color color) override;
 
   int get_height_internal() override;
   int get_width_internal() override;
