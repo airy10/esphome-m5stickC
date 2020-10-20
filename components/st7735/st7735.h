@@ -95,26 +95,15 @@ struct Color565 {
 }  // namespace esphome
 
 // Some ready-made 16-bit ('565') color settings:
-#define ST77XX_BLACK       0x0000      /*   0,   0,   0 */
-#define ST77XX_NAVY        0x000F      /*   0,   0, 128 */
-#define ST77XX_DARKGREEN   0x03E0      /*   0, 128,   0 */
-#define ST77XX_DARKCYAN    0x03EF      /*   0, 128, 128 */
-#define ST77XX_MAROON      0x7800      /* 128,   0,   0 */
-#define ST77XX_PURPLE      0x780F      /* 128,   0, 128 */
-#define ST77XX_OLIVE       0x7BE0      /* 128, 128,   0 */
-#define ST77XX_LIGHTGREY   0xC618      /* 192, 192, 192 */
-#define ST77XX_DARKGREY    0x7BEF      /* 128, 128, 128 */
-#define ST77XX_BLUE        0x001F      /*   0,   0, 255 */
-#define ST77XX_GREEN       0x07E0      /*   0, 255,   0 */
-#define ST77XX_CYAN        0x07FF      /*   0, 255, 255 */
-#define ST77XX_RED         0xF800      /* 255,   0,   0 */
-#define ST77XX_MAGENTA     0xF81F      /* 255,   0, 255 */
-#define ST77XX_YELLOW      0xFFE0      /* 255, 255,   0 */
-#define ST77XX_WHITE       0xFFFF      /* 255, 255, 255 */
-#define ST77XX_ORANGE      0xFDA0      /* 255, 180,   0 */
-#define ST77XX_GREENYELLOW 0xB7E0      /* 180, 255,   0 */
-#define ST77XX_PINK        0xFC9F
-#define ST77XX_TRANSPARENT 0x0120
+#define ST77XX_BLACK       esphome::st7735::Color565<0x0000>{}    /*   0,   0,   0 */
+#define ST77XX_WHITE       esphome::st7735::Color565<0xFFFF>{}    /* 255, 255, 255 */
+#define ST77XX_RED         esphome::st7735::Color565<0xF800>{}    /* 255,   0,   0 */
+#define ST77XX_GREEN       esphome::st7735::Color565<0x07E0>{}    /*   0, 255,   0 */
+#define ST77XX_BLUE        esphome::st7735::Color565<0x001F>{}    /*   0,   0, 255 */
+#define ST77XX_CYAN        esphome::st7735::Color565<0x07FF>{}    /*   0, 255, 255 */
+#define ST77XX_MAGENTA     esphome::st7735::Color565<0xF81F>{}    /* 255,   0, 255 */
+#define ST77XX_YELLOW      esphome::st7735::Color565<0xFFE0>{}    /* 255, 255,   0 */
+#define ST77XX_ORANGE      esphome::st7735::Color565<0xFDA0>{}    /* 255, 180,   0 */
 
 // Some ready-made 16-bit ('565') color settings:
 #define ST7735_BLACK      ST77XX_BLACK
