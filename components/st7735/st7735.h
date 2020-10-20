@@ -80,6 +80,20 @@
 #define ST7735_NVMSET		0xFC      // NVM setting
 #define ST7735_PROMACT		0xFE      // Program action
 
+namespace esphome {
+namespace st7735 {
+
+template <int N>
+struct Color565 {
+  operator Color () const
+  {
+    return Color((((N)&0xF800) >> 8), (((N)&0x07E0) >> 3), (((N)&0x001F) << 3));
+  }
+};
+
+}  // namespace st7735
+}  // namespace esphome
+
 // Some ready-made 16-bit ('565') color settings:
 #define ST77XX_BLACK       0x0000      /*   0,   0,   0 */
 #define ST77XX_NAVY        0x000F      /*   0,   0, 128 */
