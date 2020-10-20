@@ -80,16 +80,30 @@
 #define ST7735_NVMSET		0xFC      // NVM setting
 #define ST7735_PROMACT		0xFE      // Program action
 
+namespace esphome {
+namespace st7735 {
+
+template <int N>
+struct Color565 {
+  operator Color () const
+  {
+    return Color((((N)&0xF800) >> 8), (((N)&0x07E0) >> 3), (((N)&0x001F) << 3));
+  }
+};
+
+}  // namespace st7735
+}  // namespace esphome
+
 // Some ready-made 16-bit ('565') color settings:
-#define ST77XX_BLACK      0x0000
-#define ST77XX_WHITE      0xFFFF
-#define ST77XX_RED        0xF800
-#define ST77XX_GREEN      0x07E0
-#define ST77XX_BLUE       0x001F
-#define ST77XX_CYAN       0x07FF
-#define ST77XX_MAGENTA    0xF81F
-#define ST77XX_YELLOW     0xFFE0
-#define ST77XX_ORANGE     0xFC00
+#define ST77XX_BLACK       esphome::st7735::Color565<0x0000>{}    /*   0,   0,   0 */
+#define ST77XX_WHITE       esphome::st7735::Color565<0xFFFF>{}    /* 255, 255, 255 */
+#define ST77XX_RED         esphome::st7735::Color565<0xF800>{}    /* 255,   0,   0 */
+#define ST77XX_GREEN       esphome::st7735::Color565<0x07E0>{}    /*   0, 255,   0 */
+#define ST77XX_BLUE        esphome::st7735::Color565<0x001F>{}    /*   0,   0, 255 */
+#define ST77XX_CYAN        esphome::st7735::Color565<0x07FF>{}    /*   0, 255, 255 */
+#define ST77XX_MAGENTA     esphome::st7735::Color565<0xF81F>{}    /* 255,   0, 255 */
+#define ST77XX_YELLOW      esphome::st7735::Color565<0xFFE0>{}    /* 255, 255,   0 */
+#define ST77XX_ORANGE      esphome::st7735::Color565<0xFDA0>{}    /* 255, 180,   0 */
 
 // Some ready-made 16-bit ('565') color settings:
 #define ST7735_BLACK      ST77XX_BLACK
@@ -136,8 +150,8 @@ class ST7735 : public PollingComponent, public display::DisplayBuffer,
   
   void spi_master_write_addr(uint16_t addr1, uint16_t addr2);
   void spi_master_write_color(uint16_t color, uint16_t size);
-  
-  void draw_absolute_pixel_internal(int x, int y, int color) override;
+
+  void draw_absolute_pixel_internal(int x, int y, Color color) override;
 
   int get_height_internal() override;
   int get_width_internal() override;
