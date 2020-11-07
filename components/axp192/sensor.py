@@ -1,34 +1,24 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import i2c, sensor
-from esphome.const import CONF_ID,\
-    CONF_BATTERY_LEVEL, CONF_BRIGHTNESS, UNIT_PERCENT, ICON_BATTERY
+from esphome.components import sensor
+from esphome.const import CONF_ID, CONF_BATTERY_LEVEL, UNIT_PERCENT, ICON_BATTERY
+from . import axp192_ns, AXP192Component, CONF_AXP192_ID
 
-DEPENDENCIES = ['i2c']
 
-axp192_ns = cg.esphome_ns.namespace('axp192')
+DEPENDENCIES = ['axp192']
+AXP192Sensor = axp192_ns.class_('AXP192Sensor', sensor.Sensor, cg.Component)
 
-AXP192Component = axp192_ns.class_('AXP192Component', cg.PollingComponent, i2c.I2CDevice)
-
-CONFIG_SCHEMA = cv.Schema({
-    cv.GenerateID(): cv.declare_id(AXP192Component),
-    cv.Optional(CONF_BATTERY_LEVEL):
-        sensor.sensor_schema(UNIT_PERCENT, ICON_BATTERY, 1).extend({
-        }),
-    cv.Optional(CONF_BRIGHTNESS, default=1.0): cv.percentage,
-}).extend(cv.polling_component_schema('60s')).extend(i2c.i2c_device_schema(0x77))
+CONFIG_SCHEMA = sensor.sensor_schema(UNIT_PERCENT, ICON_BATTERY, 1).extend({
+    cv.GenerateID(): cv.declare_id(AXP192Sensor),
+    cv.Required(CONF_AXP192_ID): cv.use_id(AXP192Component)
+}).extend(cv.COMPONENT_SCHEMA)
 
 
 def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     yield cg.register_component(var, config)
-    yield i2c.register_i2c_device(var, config)
+    yield sensor.register_sensor(var, config)
 
-    if CONF_BATTERY_LEVEL in config:
-        conf = config[CONF_BATTERY_LEVEL]
-        sens = yield sensor.new_sensor(conf)
-        cg.add(var.set_batterylevel_sensor(sens))
+    axp = yield cg.get_variable(config[CONF_AXP192_ID])
+    cg.add(axp.set_batterylevel_sensor(var))
 
-    if CONF_BRIGHTNESS in config:
-        conf = config[CONF_BRIGHTNESS]
-        cg.add(var.set_brightness(conf))
