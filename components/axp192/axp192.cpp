@@ -1,5 +1,6 @@
 #include "axp192.h"
 #include "esphome/core/log.h"
+#include "esp_sleep.h"
 
 namespace esphome {
 namespace axp192 {
@@ -350,7 +351,7 @@ void AXP192Component::SetSleep(void)
 void AXP192Component::DeepSleep(uint64_t time_in_us)
 { 
     SetSleep();
-    esp_sleep_enable_ext0_wakeup((gpio_num_t)37, LOW);
+    esp_sleep_enable_ext0_wakeup((gpio_num_t)37, 0 /* LOW */);
     if (time_in_us > 0)
     {
         esp_sleep_enable_timer_wakeup(time_in_us);
