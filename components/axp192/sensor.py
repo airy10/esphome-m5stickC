@@ -13,8 +13,11 @@ AXP192Component = axp192_ns.class_('AXP192Component', cg.PollingComponent, i2c.I
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(AXP192Component),
     cv.Optional(CONF_BATTERY_LEVEL):
-        sensor.sensor_schema(UNIT_PERCENT, ICON_BATTERY, 1).extend({
-        }),
+        sensor.sensor_schema(
+            unit_of_measurement=UNIT_PERCENT,
+            accuracy_decimals=1,
+            icon=ICON_BATTERY,
+        ),
     cv.Optional(CONF_BRIGHTNESS, default=1.0): cv.percentage,
 }).extend(cv.polling_component_schema('60s')).extend(i2c.i2c_device_schema(0x77))
 
