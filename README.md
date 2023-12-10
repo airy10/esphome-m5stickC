@@ -1,3 +1,10 @@
+**NOTE**:
+A st7735 screen component is now part of esphome and a more complete axp192 component can be found here :
+  https://gitlab.com/geiseri/esphome_extras.git
+
+  https://gitlab.com/geiseri/esphome_extras/-/tree/main/components/axp192
+
+------------
 Additional components to use esphome with a M5StickC.  
 Mostly a work in progress.  
 Copy the components to a `custom_components` directory next to your .yaml configuration file.
