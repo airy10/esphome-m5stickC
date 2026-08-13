@@ -1,6 +1,7 @@
 **NOTE**:
-These component are now quite obsolete as a st7735 screen component is now part of esphome and **m5stack has published** a axp192 one (some axp192 sensors might not work - to be tested - just showing the exposed ones as a starting point - check m5stack full doc)
-Sample yaml to use the **m5stack** component (only some m5stickC  specific stuff) :
+These component are now quite obsolete as a st7735 screen component is now part of esphome and *m5stack has published* a axp192 one (some axp192 sensors might not work - to be tested - just showing the exposed ones as a starting point - check m5stack full doc) - https://github.com/m5stack/esphome-yaml/tree/main/components/axp192
+
+Sample yaml to use the *m5stack* component (only some m5stickC  specific stuff) :
 ```yaml
 substitutions:
   devicename: sample-device
@@ -160,7 +161,7 @@ Another axp192 component can be found here :
   https://gitlab.com/geiseri/esphome_extras/-/tree/main/components/axp192
 
 ------------
-**Original READEME:**
+**Original README:**
 Additional components to use esphome with a M5StickC.  
 Mostly a work in progress.  
 Copy the components to a `custom_components` directory next to your .yaml configuration file.
